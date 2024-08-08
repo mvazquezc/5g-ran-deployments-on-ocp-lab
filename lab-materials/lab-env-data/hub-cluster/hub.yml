@@ -1,7 +1,7 @@
 plan: hub-cluster
 force: false
 version: stable
-tag: "4.15.3"
+tag: "4.16.3"
 cluster: "hub"
 domain: 5g-deployment.lab
 api_ip: 192.168.125.10
@@ -10,14 +10,14 @@ disconnected_url: infra.5g-deployment.lab:8443
 disconnected_update: true
 disconnected_user: admin
 disconnected_password: r3dh4t1!
-disconnected_operators_version: v4.15-1711601986
+disconnected_operators_version: v4.16-1723045275
 disconnected_operators:
 - name: advanced-cluster-management
   channels:
-  - name: release-2.10
+  - name: release-2.11
 - name: multicluster-engine
   channels:
-  - name: stable-2.5
+  - name: stable-2.6
 - name: topology-aware-lifecycle-manager
   channels:
   - name: stable
@@ -26,7 +26,7 @@ disconnected_operators:
   - name: latest
 - name: lvms-operator
   channels:
-  - name: stable-4.15
+  - name: stable-4.16
 - name: ansible-automation-platform-operator
   channels:
   - name: stable-2.4-cluster-scoped
@@ -34,16 +34,16 @@ disconnected_operators:
   channels:
   - name: stable
 disconnected_extra_images:
-- registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.15.0-32
+- registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.16.1-5
 - quay.io/rhsysdeseng/5granlab-ee:lab
 disconnected_extra_releases:
-- quay.io/openshift-release-dev/ocp-release:4.15.0-x86_64
-disk_size: 200
-#disk_size: 120
-extra_disks: [200]
-#extra_disks: [100]
-memory: 48000
-#memory: 24000
+- quay.io/openshift-release-dev/ocp-release:4.16.0-x86_64
+#disk_size: 200
+disk_size: 120
+#extra_disks: [200]
+extra_disks: [100]
+#memory: 48000
+memory: 24000
 numcpus: 16
 ctlplanes: 3
 workers: 0
