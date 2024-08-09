@@ -106,6 +106,8 @@
         apply:
           delegate_to: localhost
       vars:
+        orgs: "Acme"
+        dir_orgs_vars: "orgs_vars"
         filetree_controller_settings: "/tmp/aap2configs"
         filetree_controller_organizations: "/tmp/aap2configs"
         filetree_controller_labels: "/tmp/aap2configs"
