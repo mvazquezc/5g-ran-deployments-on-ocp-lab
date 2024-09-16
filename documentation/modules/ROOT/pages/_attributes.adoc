@@ -2,8 +2,7 @@ code:experimental:
 :source-highlighter: highlightjs
 :branch: lab-4.16
 // :github-repo: https://github.com/RHsyseng/5g-ran-deployments-on-ocp-lab/blob/{branch}
-//:repo_user: RHsyseng
-:repo_user: alosadagrande
+:repo_user: RHsyseng
 :github-repo: https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/blob/{branch}
 :profile: 5g-ran-lab
 :openshift-release: v4.16
@@ -28,7 +27,7 @@ code:experimental:
 :talm-update-file: zone-europe-upgrade-416-3.yaml
 :talm-update-channel: stable-4.16
 :talm-update-version: 4.16.3
-// oc adm release info 4.15.3 | grep "Pull From"
+// oc adm release info 4.16.3 | grep "Pull From"
 :talm-update-image: infra.5g-deployment.lab:8443/openshift/release-images@sha256:3ec3a43ded1decc18134e5677f56037d8929f4442930f5d1156e7a77cdf1b9b3
 :talm-update-policy-name: version-416-3
 :rhacm-version: v2.11
@@ -36,6 +35,7 @@ code:experimental:
 :mce-version: v2.6
 :policygentool-version: v4.16
 :kcli-tools-tag: 4.16
+:kcli-rpm: https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/raw/{branch}/lab-materials/kcli-rpm/kcli-99.0.0.git.202409091407.2293cfe-0.el9.x86_64.rpm
 :rhcos-rootfs-url: https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.16/4.16.0/rhcos-4.16.0-x86_64-live-rootfs.x86_64.img
 :rhcos-rootfs-filename: rhcos-4.16.0-x86_64-live-rootfs.x86_64.img
 :rhcos-liveiso-url: https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.16/4.16.0/rhcos-4.16.0-x86_64-live.x86_64.iso
