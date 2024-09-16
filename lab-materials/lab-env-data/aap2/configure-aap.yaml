@@ -6,7 +6,7 @@
     - aap2_webconsole_user: admin
     - hub_kubeconfig_path: /root/.kcli/clusters/hub/auth/kubeconfig
     - repo_user: RHsyseng
-    - lab_version: lab-4.15
+    - lab_version: lab-4.16
     - lab_registry_host: "infra.5g-deployment.lab:8443"
   tasks:
     - name: Wait for AAP Controller to come up
@@ -106,6 +106,8 @@
         apply:
           delegate_to: localhost
       vars:
+        orgs: "Acme"
+        dir_orgs_vars: "orgs_vars"
         filetree_controller_settings: "/tmp/aap2configs"
         filetree_controller_organizations: "/tmp/aap2configs"
         filetree_controller_labels: "/tmp/aap2configs"
