@@ -23,7 +23,7 @@ jobs:
         with:
           antora_playbook: site.yml
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: site
           path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
@@ -35,7 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Download generated site
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: site
           path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
