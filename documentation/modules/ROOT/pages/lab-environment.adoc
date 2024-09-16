@@ -53,7 +53,7 @@ IMPORTANT: Below commands must be executed from the hypervisor host as root if n
 [.console-input]
 [source,bash,subs="attributes+,+macros"]
 -----
-dnf -y install bash-completion vim jq tar git ipcalc pip https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/raw/lab-4.16/lab-materials/kcli-rpm/kcli-99.0.0.git.202409091407.2293cfe-0.el9.x86_64.rpm
+dnf -y install bash-completion vim jq tar git ipcalc pip {kcli-rpm}
 pip install pyopenssl
 -----
 
