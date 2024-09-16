@@ -23,9 +23,9 @@ WARNING: If you get `ERRO[0000] running `/usr/bin/newuidmap 51706 0 1000 1 1 100
 [.console-input]
 [source,bash,subs="attributes+,+macros"]
 -----
-mkdir -p ~/5g-deployment-lab/ztp-pipeline/
+mkdir -p ~/5g-deployment-lab/ztp-pipeline/argocd
 podman login infra.5g-deployment.lab:8443 -u admin -p r3dh4t1! --tls-verify=false
-podman run --log-driver=none --rm --tls-verify=false {ztp-sitegenerate-disconnected-image} extract /home/ztp --tar | tar x -C ~/5g-deployment-lab/ztp-pipeline/
+podman run --log-driver=none --rm --tls-verify=false {ztp-sitegenerate-disconnected-image} extract /home/ztp/argocd --tar | tar x -C ~/5g-deployment-lab/ztp-pipeline/argocd/
 -----
 
 Now that we extracted the pipeline content we need to get it applied to our hub cluster:
