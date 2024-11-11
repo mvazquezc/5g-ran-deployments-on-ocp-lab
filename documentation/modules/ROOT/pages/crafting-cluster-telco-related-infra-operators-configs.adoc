@@ -364,7 +364,7 @@ If you require cluster configuration changes outside of the base GitOps Zero Tou
 
 WARNING: We recommend a directory structure to keep reference manifests corresponding to the y-stream release.
 
-In this lab we do not need extra content, however we are going to pave the way for future requirements. Let's first extract the predefined source-crs from the ztp-generate container 4.16 version to the reference-crs folder.
+In this lab we do not need extra content, however we are going to pave the way for future requirements. Let's first extract the predefined source-crs from the ztp-generate container {lab-major-version} version to the reference-crs folder.
 
 [.console-input]
 [source,bash,subs="attributes+,+macros"]
