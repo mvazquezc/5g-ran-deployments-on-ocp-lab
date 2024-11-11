@@ -1,6 +1,7 @@
 code:experimental:
 :source-highlighter: highlightjs
 :branch: lab-4.17
+:lab-major-version: 4.17
 :repo_user: RHsyseng
 :github-repo: https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/blob/{branch}
 :profile: 5g-ran-lab
@@ -26,7 +27,6 @@ code:experimental:
 :talm-update-file: zone-europe-upgrade-417-4.yaml
 :talm-update-channel: stable-4.17
 :talm-update-version: 4.17.4
-:lab-major-version: 4.17
 // oc adm release info 4.17.4 | grep "Pull From"
 :talm-update-image: infra.5g-deployment.lab:8443/openshift/release-images@sha256:bada2d7626c8652e0fb68d3237195cb37f425e960347fbdd747beb17f671cf13
 :talm-update-policy-name: version-417-4
@@ -35,7 +35,7 @@ code:experimental:
 :mce-version: v2.7
 :policygentool-version: v4.17
 :kcli-tools-tag: 4.17
-:kcli-rpm: https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/raw/{branch}/lab-materials/kcli-rpm/kcli-99.0.0.git.202409091407.2293cfe-0.el9.x86_64.rpm
+:kcli-rpm: https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/releases/download/{lab-major-version}/kcli-99.0.0.git.202411061013.2f63d4b-0.el9.x86_64.rpm
 :rhcos-rootfs-url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.17/4.17.0/rhcos-4.17.0-x86_64-live-rootfs.x86_64.img
 :rhcos-rootfs-filename: rhcos-4.17.0-x86_64-live-rootfs.x86_64.img
 :rhcos-liveiso-url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.17/4.17.0/rhcos-4.17.0-x86_64-live.x86_64.iso
