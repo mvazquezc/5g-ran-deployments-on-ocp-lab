@@ -29,7 +29,7 @@ disconnected_operators:
   - name: stable-4.17
 - name: ansible-automation-platform-operator
   channels:
-  - name: stable-2.5-cluster-scoped
+  - name: stable-2.4-cluster-scoped
 - name: sriov-network-operator
   channels:
   - name: stable
@@ -50,6 +50,8 @@ users_dev: developer
 users_devpassword: CHANGE_DEV_PWD
 users_admin: admin
 users_adminpassword: CHANGE_ADMIN_PWD
+lvms_devices:
+- /dev/vdb
 apps:
 - users
 - openshift-gitops-operator
