@@ -25,11 +25,12 @@ oc --kubeconfig ~/5g-deployment-lab/hub-kubeconfig get operators
 [source,console]
 -----
 NAME                                                   AGE
-advanced-cluster-management.open-cluster-management    16h
-lvms-operator.openshift-storage                        16h
-multicluster-engine.multicluster-engine                16h
-openshift-gitops-operator.openshift-operators          16h
-topology-aware-lifecycle-manager.openshift-operators   16h
+advanced-cluster-management.open-cluster-management    103m
+ansible-automation-platform-operator.aap               103m
+lvms-operator.openshift-storage                        105m
+multicluster-engine.multicluster-engine                103m
+openshift-gitops-operator.openshift-operators          105m
+topology-aware-lifecycle-manager.openshift-operators   103m
 -----
 
 Next, double check there is no problem with the Pod. Notice that the name of the Pod is cluster-group-upgrade-controller-manager, based on the name of the upstream project {talm-upstream-project}[Cluster Group Upgrade Operator].
@@ -44,21 +45,21 @@ oc --kubeconfig ~/5g-deployment-lab/hub-kubeconfig get pods,sa,deployments -n op
 [console-input]
 [source,console]
 -----
-NAME                                                             READY   STATUS    RESTARTS   AGE
-pod/cluster-group-upgrades-controller-manager-75b967b749-qlzn8   2/2     Running   0          3h3m
-pod/gitops-operator-controller-manager-7b6b8967b8-4f8rx          1/1     Running   0          3h6m
+NAME                                                                READY   STATUS    RESTARTS   AGE
+pod/cluster-group-upgrades-controller-manager-v2-789fd8fbcd-nn4k5   2/2     Running   0          103m
+pod/openshift-gitops-operator-controller-manager-6794f4f9cc-vpm2b   2/2     Running   0          106m
 
 NAME                                                                SECRETS   AGE
-serviceaccount/builder                                              1         3h17m
-serviceaccount/cluster-group-upgrades-controller-manager            1         3h3m
-serviceaccount/cluster-group-upgrades-operator-controller-manager   1         3h3m
-serviceaccount/default                                              1         3h43m
-serviceaccount/deployer                                             1         3h17m
-serviceaccount/gitops-operator-controller-manager                   1         3h6m
+serviceaccount/builder                                              1         127m
+serviceaccount/cluster-group-upgrades-controller-manager            1         103m
+serviceaccount/cluster-group-upgrades-operator-controller-manager   1         103m
+serviceaccount/default                                              1         132m
+serviceaccount/deployer                                             1         127m
+serviceaccount/openshift-gitops-operator-controller-manager         1         106m
 
-NAME                                                        READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/cluster-group-upgrades-controller-manager   1/1     1            1           3h3m
-deployment.apps/gitops-operator-controller-manager          1/1     1            1           3h6m
+NAME                                                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cluster-group-upgrades-controller-manager-v2   1/1     1            1           103m
+deployment.apps/openshift-gitops-operator-controller-manager   1/1     1            1           106m
 -----
 
 Finally, let's take a look at the cluster group upgrade (CGU) CRD managed by TALM. If we pay a closer look we will notice that an already completed CGU was applied to SNO2. As we mentioned in link:talm.html#inform-policies[inform policies] section, all policies are not enforced, the user has to create the proper CGU resource to enforce them. However, when using ZTP, we want our cluster provisioned and configured automatically. This is where TALM will step through the set of created policies (inform) and will enforce them once the cluster was successfully provisioned. Therefore, the configuration stage starts without any intervention ending up with our OpenShift cluster ready to process workloads.
@@ -74,8 +75,8 @@ oc --kubeconfig ~/5g-deployment-lab/hub-kubeconfig get cgu sno2 -n ztp-install
 [console-input]
 [source,console]
 -----
-NAMESPACE     NAME            AGE     STATE       DETAILS
-ztp-install   sno2            79m     Completed   All clusters are compliant with all the managed policies
+NAME   AGE     STATE       DETAILS
+sno2   7m26s   Completed   All clusters are compliant with all the managed policies
 -----
 
 [#getting-snos-kubeconfigs]
@@ -257,10 +258,10 @@ oc --kubeconfig ~/5g-deployment-lab/hub-kubeconfig get cgu -A
 [source,console]
 -----
 NAMESPACE      NAME                 AGE    STATE        DETAILS
-ztp-install    local-cluster        3h8m   Completed    All clusters already compliant with the specified managed policies
-ztp-install    sno1                 15m    Completed    All clusters already compliant with the specified managed policies
-ztp-install    sno2                 86m    Completed    All clusters are compliant with all the managed policies
-ztp-policies   update-europe-snos   20s    InProgress   Precaching in progress for 2 clusters
+ztp-install    local-cluster        105m   Completed    All clusters already compliant with the specified managed policies
+ztp-install    sno1                 23m    Completed    All clusters already compliant with the specified managed policies
+ztp-install    sno2                 10m    Completed    All clusters are compliant with all the managed policies
+ztp-policies   update-europe-snos   4s     InProgress   Precaching in progress for 2 clusters
 -----
 
 Connecting to any of our spoke clusters we can see a new job being created called pre-cache.
@@ -296,14 +297,9 @@ upgrades.pre-cache {last-update-date}T10:55:10+00:00 DEBUG Release index image p
 7df5fe3b5fb7352b870735c7d7bd898d0959a9a49558d2ffb42dcd269e01752f
 upgrades.pre-cache {last-update-date}T08:13:59+00:00 [DEBUG]: Operators index is not specified. Operators won't be pre-cached
 upgrades.pre-cache {last-update-date}T08:13:59+00:00 [INFO]: Image pre-caching starting for platform-images
-upgrades.pre-cache {last-update-date}T08:13:59+00:00 [DEBUG]: Pulling quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:98aedb56541d7021c097128406e6225ed9b8c6d4e59a59ab0d061c1b1866e137 [1/114]
-upgrades.pre-cache {last-update-date}T08:13:59+00:00 [DEBUG]: Pulling quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:8dbad8f6e69d19d9cd19c9ff9ac731c6e1a7f5ea7543626a9d473555c791bb26 [2/114]
-upgrades.pre-cache {last-update-date}T08:13:59+00:00 [DEBUG]: Pulling quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:634d44ec3d6d36106aa8857adcecfcacbbdb063b6bcb1bf823bd4bb874c68e5b [3/114]
 .
 .
 .
-upgrades.pre-cache {last-update-date}T08:20:25+00:00 [DEBUG]: Pulling quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:421b2983c440bf29118912209e93b12f4b24899911ee936f304502930fd04733 [113/114]
-upgrades.pre-cache {last-update-date}T08:20:25+00:00 [DEBUG]: Pulling quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:454d7e4a1b0f9433924440577a29fdfc54b669db4c5b0fd2cb3ae5e640594a68 [114/114]
 upgrades.pre-cache {last-update-date}T08:20:36+00:00 [INFO]: Image pre-caching complete for platform-images
 -----
 
@@ -386,40 +382,9 @@ oc --kubeconfig ~/5g-deployment-lab/sno2-kubeconfig logs job/backup-agent -n ope
 INFO[0000] ------------------------------------------------------------ 
 INFO[0000] Cleaning up old content...                   
 INFO[0000] ------------------------------------------------------------ 
-INFO[0000] Old directories deleted with contents        
-INFO[0000] Old contents have been cleaned up            
-INFO[0000] Available disk space : 151.77 GiB; Estimated disk space required for backup: 277.41 MiB  
-INFO[0000] Sufficient disk space found to trigger backup 
-INFO[0000] Upgrade recovery script written              
-INFO[0000] Running: bash -c /var/recovery/upgrade-recovery.sh --take-backup --dir /var/recovery 
-INFO[0000] ##### Wed Apr 10 09:06:34 UTC 2024: Taking backup 
-INFO[0000] ##### Wed Apr 10 09:06:34 UTC 2024: Wiping previous deployments and pinning active 
-INFO[0000] error: Out of range deployment index 1, expected < 1 
-INFO[0000] Deployment 0 is now pinned                   
-INFO[0000] ##### Wed Apr 10 09:06:34 UTC 2024: Backing up container cluster and required files 
-INFO[0000] Certificate /etc/kubernetes/static-pod-certs/configmaps/etcd-serving-ca/ca-bundle.crt is missing. Checking in different directory 
-INFO[0000] Certificate /etc/kubernetes/static-pod-resources/etcd-certs/configmaps/etcd-serving-ca/ca-bundle.crt found! 
-INFO[0000] found latest kube-apiserver: /etc/kubernetes/static-pod-resources/kube-apiserver-pod-4 
-INFO[0000] found latest kube-controller-manager: /etc/kubernetes/static-pod-resources/kube-controller-manager-pod-7 
-INFO[0000] found latest kube-scheduler: /etc/kubernetes/static-pod-resources/kube-scheduler-pod-6 
-INFO[0000] found latest etcd: /etc/kubernetes/static-pod-resources/etcd-pod-3 
-INFO[0001] 8f1f03837eccb959d0da9665ca79e995b87c6a1f024f0a198efcb2b51795f66c 
-INFO[0001] etcdctl version: 3.5.11                      
-INFO[0001] API version: 3.5                             
-INFO[0001] {"level":"info","ts":"2024-04-10T09:06:34.866338Z","caller":"snapshot/v3_snapshot.go:65","msg":"created temporary db file","path":"/var/recovery/cluster/snapshot_2024-04-10_090634__POSSIBLY_DIRTY__.db.part"} 
-INFO[0001] {"level":"info","ts":"2024-04-10T09:06:34.880464Z","logger":"client","caller":"v3@v3.5.11/maintenance.go:212","msg":"opened snapshot stream; downloading"} 
-INFO[0001] {"level":"info","ts":"2024-04-10T09:06:34.880497Z","caller":"snapshot/v3_snapshot.go:73","msg":"fetching snapshot","endpoint":"https://192.168.125.40:2379"} 
-INFO[0002] {"level":"info","ts":"2024-04-10T09:06:35.577727Z","logger":"client","caller":"v3@v3.5.11/maintenance.go:220","msg":"completed snapshot read; closing"} 
-INFO[0002] {"level":"info","ts":"2024-04-10T09:06:35.816588Z","caller":"snapshot/v3_snapshot.go:88","msg":"fetched snapshot","endpoint":"https://192.168.125.40:2379","size":"81 MB","took":"now"} 
-INFO[0002] {"level":"info","ts":"2024-04-10T09:06:35.816772Z","caller":"snapshot/v3_snapshot.go:97","msg":"saved","path":"/var/recovery/cluster/snapshot_2024-04-10_090634__POSSIBLY_DIRTY__.db"} 
-INFO[0002] Snapshot saved at /var/recovery/cluster/snapshot_2024-04-10_090634__POSSIBLY_DIRTY__.db 
-INFO[0002] {"hash":1474842361,"revision":33232,"totalKey":8130,"totalSize":80941056} 
-INFO[0002] snapshot db and kube resources are successfully saved to /var/recovery/cluster 
-INFO[0002] Command succeeded: cp -Ra /etc/ /var/recovery/ 
-INFO[0002] Command succeeded: cp -Ra /usr/local/ /var/recovery/ 
-INFO[0003] Command succeeded: cp -Ra /var/lib/kubelet/ /var/recovery/ 
-INFO[0003] tar: Removing leading `/' from member names  
-INFO[0003] ##### Wed Apr 10 09:06:36 UTC 2024: Backup complete 
+.
+.
+.
 INFO[0003] ------------------------------------------------------------ 
 INFO[0003] backup has successfully finished ...         
 -----
@@ -436,7 +401,9 @@ oc --kubeconfig ~/5g-deployment-lab/hub-kubeconfig get cgu -A
 [source,console]
 -----
 NAMESPACE      NAME                 AGE    STATE             DETAILS
-ztp-install    sno2                 4h9m   Completed         All clusters are compliant with all the managed policies
+ztp-install    local-cluster        124m   Completed         All clusters already compliant with the specified managed policies
+ztp-install    sno1                 42m    Completed         All clusters already compliant with the specified managed policies
+ztp-install    sno2                 28m    Completed         All clusters are compliant with all the managed policies
 ztp-policies   update-europe-snos   28m    BackupCompleted   Backup is completed for all clusters
 -----
 
@@ -462,7 +429,7 @@ Meanwhile, the clusters are upgrading we can take a look at the https://console-
 
 image::talm_upgrade_policy_03.png[TALM upgrade policy 3]
 
-Moving to the Infrastructure -> Cluster section of the multicloud console we can also graphically see the upgrading of both clusters:
+Moving to the Infrastructure -> Cluster section of the multicloud console we can also graphically see both clusters being upgraded:
 
 image::talm_upgrade_policy_04.png[TALM upgrade policy 3]
 

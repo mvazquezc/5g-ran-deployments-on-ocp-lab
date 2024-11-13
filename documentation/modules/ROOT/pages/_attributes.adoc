@@ -6,7 +6,7 @@ code:experimental:
 :github-repo: https://github.com/{repo_user}/5g-ran-deployments-on-ocp-lab/blob/{branch}
 :profile: 5g-ran-lab
 :openshift-release: v4.17
-:rds-link: https://docs.google.com/document/d/1qWUNGGaEEnzEF3hO0b00K1531YXQf0IxIUmq0FchB3I
+:rds-link: https://docs.google.com/document/d/1ntvZrwPe2w919JHS5MN23W7bVXubLk2z2r-6ZKvagM4
 :policygen-common-file: common-417.yaml
 :policygen-common-label: ocp417
 :lvms-channel: stable-4.17
@@ -19,8 +19,8 @@ code:experimental:
 :hub-cluster-kubeversion: v1.29.6+aba1e8d
 :sno-cluster-version1: v4.17.3
 :sno-cluster-version2: v4.17.4
-:sno-cluster-version1-kubeversion: v1.29.5+29c95f3
-:sno-cluster-version2-kubeversion: v1.29.6+aba1e8d
+:sno-cluster-version1-kubeversion: v1.30.5
+:sno-cluster-version2-kubeversion: v1.30.5
 :sno-cluster-version1-cvo: 4.17.3
 :sno-cluster-version2-cvo: 4.17.4
 :active-ocp-version-clusterimageset: infra.5g-deployment.lab:8443/openshift/release-images:{sno-cluster-version1-cvo}-x86_64
